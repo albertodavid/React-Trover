@@ -13,19 +13,16 @@ function Popular() {
   const [popular, setPopular] = useState(['','','','','',"","","","",""])
 
   const getPopular = async () => {
-    let i =0;
-    while (i < 10 ) {
-
-      i++;
-      const api = await fetch(`https://openlibrary.org/subjects/${listaTemas[Math.floor(Math.random() * 39) + 1]}.json?limit=10&offset=${Math.round(Math.random() * 100)}`)
-      const data = await api.json();
-  
-      books.push(data.works[Math.round(Math.random() * 9)])  
-    }
+    const api = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${listaTemas[Math.floor(Math.random() * 39) + 1]}&maxResults=10&key=${process.env.REACT_APP_API_KEY}`)
+    const data = await api.json();
+      
+    books.push(data.items)  
+    
     setPopular(books)
   }
   useEffect(() => {
     getPopular();
+    console.log(popular);
   },[]);
   
 
@@ -37,6 +34,7 @@ function Popular() {
       </Wrapper>
     )
   }else{
+    console.log(popular);
     return (
       <Wrapper>
   
@@ -61,24 +59,17 @@ function Popular() {
             }
           },
           }}>
-          {popular.map((book) => {
-  
-  
-            let cover;
-  
-            if (book.cover_id != null) {
-              cover = 'http://covers.openlibrary.org/b/id/' + book.cover_id + '-L.jpg';
-            }else{
-              cover = 'https://i.imgur.com/wTcLPLO.jpg'
-            }
-  
+          {popular[0].map((book) => { 
+            
+            console.log(`https://books.google.com/books/content/images/frontcover/${book.id}}?fife=w400-h600`);
+            
               return(
-                <SplideSlide key={book.title}>
-                  <Link to={'/book/' + book.cover_edition_key}>
+                <SplideSlide key={book.id}>
+                  <Link to={'/book/' + book.id}>
                     <Card > 
-                      <p>{book.title}</p>
+                      <p>{book.volumeInfo.title}</p>
                       <Gradient />
-                      <img src={cover} alt=""/>
+                      <img src={`https://books.google.com/books/content/images/frontcover/${book.id}?fife=w400-h600`} alt=""/>
                     </Card>
                   </Link>
                 </SplideSlide>
@@ -116,12 +107,6 @@ const Card = styled.div`
     position: relative;
     border-radius:2rem;
 
-    @media (max-width: 1300px) {
-    width: 95%;
-    img{
-      width:500px
-    }
-  }
 
     img{
 

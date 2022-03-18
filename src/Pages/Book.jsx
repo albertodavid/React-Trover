@@ -1,4 +1,4 @@
-import {useParams, Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { GrAmazon , GrTwitter, GrMail} from 'react-icons/gr'
@@ -7,40 +7,19 @@ function Book() {
 
     let params = useParams();
     const [book, setBook] = useState([""]);
-    const [author, setAuthor] = useState("");
-    let imag = "";
 
     const getBook = async(id) => {
-        const api = await fetch(`https://openlibrary.org/books/${id}.json`)
+        const api = await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
         const data = await api.json();
-
-        imag = await 'http://covers.openlibrary.org/b/id/' + data.covers[0] + '-L.jpg'
-        
-        const apiauth = await fetch(`https://openlibrary.org${data.authors[0].key}.json`)
-        const authdata = await apiauth.json()
-        
+    
         setBook(data)
-        setAuthor(authdata.name)
     }
 
 
     useEffect(() => {
         getBook(params.id);
-        setAuthor();
       },[params.id])
     
-      try {
-        console.log(book.covers[0]);
-    } catch (e) {
-    }
-    
-    const getInfo = book.description
-    
-    try {
-        console.log(getInfo);
-    } catch (error) {
-        getInfo = book.description.value
-    }
 
 
     if(book[0]==""){
@@ -54,17 +33,17 @@ function Book() {
         return (
             <Info>
                 
-                <img src={'http://covers.openlibrary.org/b/id/' + book.covers[0] + '-L.jpg'} alt="" srcSet="" />
+                <img src={`https://books.google.com/books/content/images/frontcover/${params.id}?fife=w400-h600`} alt="" srcSet="" />
                 
                 <Data>
-                    <h1>{book.title}</h1>
-                    <h2>{author}</h2>
-                    <p>{getInfo}</p>
+                    <h1>{book.volumeInfo.title}</h1>
+                    <h2>{book.volumeInfo.authors[0]}</h2>
+                    <p dangerouslySetInnerHTML={{__html:book.volumeInfo.description}} />
 
                     <BtnsDiv>
-                        <Button><GrAmazon /></Button>
-                        <Button><GrTwitter /></Button>
-                        <Button><GrMail /></Button>
+                        <Button onClick={()=>{window.open(`https://www.amazon.com/s?k=${book.volumeInfo.title}`)}}><GrAmazon /></Button>
+                        <Button onClick={()=>{window.open(`https://twitter.com/intent/tweet?text=My next reading will be: ${book.volumeInfo.title}. I discovered it in rTrover`)}}><GrTwitter /></Button>
+                        <Button onClick={()=>{window.open(`mailto:""?Subject=${book.volumeInfo.title}&body=I want to read: ${book.volumeInfo.title}. More info: http://localhost:3000/book/${params.id}`)}}><GrMail /></Button>
                     </BtnsDiv>
 
                 </Data>
@@ -91,12 +70,25 @@ const Info = styled.div`
     width: 50%;
     text-align: center;
     display:flex;
+    align-items:center;
     flex-direction:row;
     justify-content: center;
+
+    img{
+      object-fit: cover;
+      width:25%;
+      filter: blur(50%);
+    }
 
     p{
         padding:1rem;
         text-align:justify;
+        display: block;/* or inline-block */
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        overflow: auto;
+        max-height: 20em;
+        line-height: 1.8em;
     }
 
     @media (max-width: 1300px) {
@@ -140,9 +132,19 @@ const Button = styled.button`
     }
 `
 const BtnsDiv = styled.div`
-padding:1rem;
-width:50%;
-margin:auto;
-display:flex;
-justify-content: space-around;
+        padding:1rem;
+        width:50%;
+        margin:auto;
+        display:flex;
+        justify-content: space-around;
+`
+
+const Gradient = styled.div`
+
+        z-index:3;
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.5))
+
 `
