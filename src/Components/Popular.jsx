@@ -7,6 +7,8 @@ import {Link}  from 'react-router-dom'
 
 function Popular() {
   
+    console.log(process.env.REACT_APP_API_KEY);
+
   const listaTemas = ["", "art", "architecture", "awards", "biography", 'business', 'computers', 'cookbooks', 'crafts', 'politics', 'education', 'fiction', 'comics', 'history', 'humor', 'kids', 'law', 'literature', 'medicine', 'music', 'mystery', 'crime', 'nature', 'family', 'pets', 'philosophy', 'poetry', 'preschool', 'psychology', "puzzles", "reference", "religion", "romance", "science", "technology", "fantasy", "social", "sports", "transportation", "travel"]
   const books = [] 
 
@@ -91,14 +93,12 @@ const Wrapper = styled.div`
   margin: auto;
   width: 50%;
   text-align: center;
-
   @media (max-width: 1300px) {
     width: 95%;
     img{
       width:500px
     }
   }
-
 `
 
 const Card = styled.div`
@@ -106,17 +106,13 @@ const Card = styled.div`
     overflow: hidden;
     position: relative;
     border-radius:2rem;
-
-
     img{
-
         border-radius:2rem;
         position: absolute;
         left:0;
         width:100%;
         object-fit:cover;
     }
-
     p{
         position:absolute;
         z-index:10;
@@ -130,17 +126,14 @@ const Card = styled.div`
         justify-content:center;
         align-items:center;
     }
-
     `
 
     
 
 const Gradient = styled.div`
-
         z-index:3;
         position:absolute;
         width:100%;
         height:100%;
         background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.5))
-
 `

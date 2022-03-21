@@ -73,13 +73,11 @@ const Info = styled.div`
     align-items:center;
     flex-direction:row;
     justify-content: center;
-
     img{
       object-fit: cover;
       width:25%;
       filter: blur(50%);
     }
-
     p{
         padding:1rem;
         text-align:justify;
@@ -89,8 +87,8 @@ const Info = styled.div`
         overflow: auto;
         max-height: 20em;
         line-height: 1.8em;
+        font-family: 'Montserrat';
     }
-
     @media (max-width: 1300px) {
     width: 95%;
     img{
@@ -112,11 +110,9 @@ const Data = styled.div`
     flex-direction:column;
     justify-content: space-between
     
-
 `
 
 const Button = styled.button`
-
     padding:1.2rem 1rem 1rem 1rem;
     text-align:center;
     justify-content:center;
@@ -125,7 +121,6 @@ const Button = styled.button`
     border: 3px solid black;
     background-color: white;
     cursor: pointer;
-
     &:hover{
         background-color: #343434;
         color:white;
@@ -137,14 +132,4 @@ const BtnsDiv = styled.div`
         margin:auto;
         display:flex;
         justify-content: space-around;
-`
-
-const Gradient = styled.div`
-
-        z-index:3;
-        position:absolute;
-        width:100%;
-        height:100%;
-        background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.5))
-
 `

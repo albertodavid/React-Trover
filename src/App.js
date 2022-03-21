@@ -1,6 +1,6 @@
 import Pages from './Pages/Pages.jsx';
 import { BrowserRouter } from "react-router-dom";
-import Warning from './Components/Warning.jsx';
+
 require('./App.css');
 
 function App() {
@@ -8,7 +8,6 @@ function App() {
     <div>
       <BrowserRouter>
       <Pages />
-      <Warning />
       </BrowserRouter>
     </div>
     );
