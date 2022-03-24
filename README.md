@@ -6,6 +6,6 @@ React trover es un gestor de libros realizado en React, con un backend con Node 
 
 TODO:
 - ~~Acceso a API libros~~
-- Cuentas de usuario
-- Acceso a la información en forma de gráficos
-- Creación de datos sobre el libro
+- ~~Cuentas de usuario~~
+- ~~Acceso a la información~~ en forma de gráficos
+- ~~Creación de datos sobre el libro~~
