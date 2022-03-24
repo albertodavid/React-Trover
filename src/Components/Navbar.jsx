@@ -70,9 +70,8 @@ function Navbar() {
         <UserNav>
 
         <ul>
-            <li>Biblioteca</li>
-            <li>Añadir Libro</li>
-            <li>Log Out</li>
+            <Link to={'/biblio'}><li>Biblioteca</li></Link>
+            <Link to={'/add'}><li>Añadir Libro</li></Link>
             <li>{loginUser}</li>
         </ul>
 
@@ -91,7 +90,7 @@ function Navbar() {
         <Login>
             <h1>LogIn</h1>
             <input placeholder='username...' onChange={(event) => {setLoginUser(event.target.value)}}></input>
-            <input placeholder='password...' onChange={(event) => {setLoginPwd(event.target.value)}}></input>
+            <input placeholder='password...' type="password" onChange={(event) => {setLoginPwd(event.target.value)}}></input>
             <div>
                 <button onClick={()=>LoginUser()}> Log in </button>
                 <button className={activeTab === 'register' ? 'active' : ''} onClick={()=>setActiveTab("register")}>Register</button>
@@ -102,9 +101,9 @@ function Navbar() {
     {activeTab === "register" && (
         <Register>
         <h1>Registration</h1>
-        <input placeholder='email...' onChange={(event) => {setRegisterMail(event.target.value)}}></input>
+        <input placeholder='email...' type="email" onChange={(event) => {setRegisterMail(event.target.value)}}></input>
         <input placeholder='username...' onChange={(event) => {setRegisterUser(event.target.value)}}></input>
-        <input placeholder='password...' onChange={(event) => {setRegisterPwd(event.target.value)}}></input>
+        <input placeholder='password...' type="password" onChange={(event) => {setRegisterPwd(event.target.value)}}></input>
         <div>
             <button onClick={()=>RegisterUser()}>Register</button>
             <button className={activeTab === 'login' ? 'active' : ''} onClick={()=>setActiveTab("login")}> Log in </button>

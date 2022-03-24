@@ -4,6 +4,7 @@ const { default: mongoose } = require("mongoose");
 const dotenv = require('dotenv').config();
 
 const UserModel = require("./models/Users");
+const BookModel = require("./Models/Books");
 
 const app = express()
 
@@ -43,9 +44,30 @@ app.post("/createUser", async (req,res) => {
         res.json("ya existe un usuario con ese username/email")
     }
     
-    
+})
 
+app.get("/getBooks", (req,res) => {
+    console.log(req.query);
+    BookModel.find({username: req.query.username}, (err, result) => {
+        if(err){
+            res.json(err);
+        }else{
+            res.json(result)
+            console.log(result);
+            }
+        }
+    )
+})
 
+app.post("/addBook", async (req,res) => {
+    const user = req.body
+    const newBook = new BookModel(user);
+    try {
+        await newBook.save();
+        res.json("Libro añadido")
+    } catch (error) {
+        res.json("error")
+    }  
 })
 
 app.listen(3001, () => {
